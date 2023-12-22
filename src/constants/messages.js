@@ -1,0 +1,16 @@
+export const MESSAGE = {
+	VALIDATION_ERROR: " Validation Error!",
+	IS_REQUIRED: " is required!",
+	ALREADY_EXIST: " has already existed!",
+	NOT_EXIST: " is not existed!",
+	NOT_MATCHED: " is not matched!",
+	NOT_EMPTY: " is not empty!",
+	IS_STRING: " must be string!",
+	IS_INVALID: " is invalid!",
+	NOT_FOUND: " is not found!",
+	MUST_BE_NUMERIC: " must be numeric!",
+	MUST_BE_POSITIVE_NUMER: " must be positive number!",
+	MUST_BE_DATE: " must be date!",
+	MUST_BE_ARRAY: " must be array!",
+	IS_USED: " was used! can not do this action!",
+};

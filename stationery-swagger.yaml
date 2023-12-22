@@ -1,0 +1,218 @@
+openapi: 3.0.3
+info:
+  title: Swagger Petstore - OpenAPI 3.0
+  description: |-
+    This is a sample Pet Store Server based on the OpenAPI 3.0 specification.  You can find out more about
+    Swagger at [https://swagger.io](https://swagger.io). In the third iteration of the pet store, we've switched to the design first approach!
+    You can now help us improve the API whether it's by making changes to the definition itself or to the code.
+    That way, with time, we can improve the API in general, and expose some of the new features in OAS3.
+
+    _If you're looking for the Swagger 2.0/OAS 2.0 version of Petstore, then click [here](https://editor.swagger.io/?url=https://petstore.swagger.io/v2/swagger.yaml). Alternatively, you can load via the `Edit > Load Petstore OAS 2.0` menu option!_
+
+    Some useful links:
+    - [The Pet Store repository](https://github.com/swagger-api/swagger-petstore)
+    - [The source API definition for the Pet Store](https://github.com/swagger-api/swagger-petstore/blob/master/src/main/resources/openapi.yaml)
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: nghiapham02072001@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.11
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers:
+  - url: http://localhost:4000
+    description: development
+tags:
+  - name: user
+    description: Operations about user
+paths:
+  /user/sign-up:
+    post:
+      tags:
+        - user
+      summary: register
+      description: register new account
+      operationId: sign-up
+      requestBody:
+        description: information
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SignUp"
+        required: true
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: signed up successfully!
+                  data:
+                    $ref: "#/components/schemas/SuccessAuth"
+        "422":
+          description: Invalid input
+  /user/sign-in:
+    post:
+      tags:
+        - user
+      summary: login
+      description: login
+      operationId: sign-in
+      requestBody:
+        description: information
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: nghia123
+                password:
+                  type: string
+                  example: 123123Nn.
+        required: true
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: signed up successfully!
+                  data:
+                    $ref: "#/components/schemas/SuccessAuth"
+        "422":
+          description: Invalid input
+  /user:
+    get:
+      tags:
+        - user
+      summary: get information
+      description: get user information
+      operationId: get-user
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: get user successfully!
+                  data:
+                    $ref: "#/components/schemas/User"
+        "401":
+          description: Unauthorized!
+      security:
+        - Bearer: []
+components:
+  schemas:
+    SignUp:
+      type: object
+      properties:
+        first_name:
+          type: string
+          example: first_name
+        last_name:
+          type: string
+          example: last_name
+        username:
+          type: string
+          example: username
+        email:
+          type: string
+          example: example-email@gmail.com
+        password:
+          type: string
+          example: 123123Nn.
+        permission:
+          type: integer
+          enum:
+            - 1
+            - 2
+          example: 1
+    SuccessAuth:
+      type: object
+      properties:
+        access_token:
+          type: string
+          example: "access_token"
+        refresh_token:
+          type: string
+          example: "refresh_token"
+    User:
+      type: object
+      properties:
+        user_id:
+          type: integer
+          example: 8
+        username:
+          type: string
+          example: nghia123
+        password:
+          type: string
+          example: $2b$10$Kqld6b27duyjQKHAMe77J.LiPZcjz/YZCY6VGethipxW08OQXb8yO
+        first_name:
+          type: string
+          example: Nghia
+        last_name:
+          type: string
+          example: Pham Hong
+        image:
+          type: string
+          format: uri
+          example: "https://firebasestorage.googleapis.com/v0/b/nodejs-stationery.appspot.com/o/images%2Fuser_image_icon-vietnam.png-1692946137835-843558967?alt=media&token=ef0956f9-34de-4b41-9383-6270ba6fbd7d"
+        email:
+          type: string
+          format: email
+          example: noname1@gmail.com
+        phone:
+          type: string
+          example: 02312121212
+        created_at:
+          type: string
+          format: date-time
+          example: "2023-07-26"
+        updated_at:
+          type: string
+          format: date-time
+          example: "2023-08-29"
+        permission_id:
+          type: integer
+          example: 1
+        status:
+          type: boolean
+          example: true
+        address:
+          type: string
+          nullable: true
+  securitySchemes:
+    Bearer:
+      type: apiKey
+      name: Authorization
+      in: header
+      # type: http
+      # scheme: bearer
+      # bearerFormat: JWT
